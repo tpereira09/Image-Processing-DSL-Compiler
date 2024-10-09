@@ -1,0 +1,1686 @@
+Terminals unused in grammar
+
+    ERROR
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: command_list
+
+    2 command_list: command
+    3             | command_list command
+
+    4 command: SHOW LPAREN IDENTIFIER RPAREN
+    5        | PRINT LPAREN IDENTIFIER RPAREN
+    6        | LOAD LPAREN IDENTIFIER COMMA PATH RPAREN
+    7        | ARRAY ASSIGNMENT LBRACKET identifier_list RBRACKET
+    8        | IDENTIFIER ASSIGNMENT expression
+    9        | LOOP LPAREN ARRAY COMMA func_loop RPAREN
+   10        | RECOGNIZE_TEXT LPAREN IDENTIFIER COMMA IDENTIFIER RPAREN
+   11        | COMPILE DOUBLE_GREATER IDENTIFIER DOUBLE_GREATER func_list
+   12        | TIMER LPAREN on_off RPAREN
+   13        | SET_MODE LPAREN mode RPAREN
+
+   14 on_off: ON
+   15       | OFF
+
+   16 mode: SEQUENTIAL_MODE
+   17     | PARALLEL_MODE
+   18     | PARALLEL_CHUNKED_MODE
+
+   19 func: RESIZE LPAREN INT COMMA INT COMMA IDENTIFIER RPAREN
+   20     | ROTATE LPAREN INT COMMA IDENTIFIER RPAREN
+   21     | FLIP LPAREN IDENTIFIER RPAREN
+   22     | GAUSSIAN_BLUR LPAREN INT COMMA INT COMMA IDENTIFIER RPAREN
+   23     | BILATERAL_BLUR LPAREN INT COMMA INT COMMA IDENTIFIER RPAREN
+   24     | MEDIAN_BLUR LPAREN INT COMMA IDENTIFIER RPAREN
+   25     | BINARY_THRESHOLD LPAREN INT COMMA IDENTIFIER RPAREN
+   26     | BINARY_INV_THRESHOLD LPAREN INT COMMA IDENTIFIER RPAREN
+   27     | OTSU_THRESHOLD LPAREN INT COMMA IDENTIFIER RPAREN
+   28     | BINARIZATION LPAREN IDENTIFIER RPAREN
+   29     | COUNTOR LPAREN IDENTIFIER RPAREN
+
+   30 func_loop: RESIZE LPAREN INT COMMA INT RPAREN
+   31          | ROTATE LPAREN INT RPAREN
+   32          | FLIP LPAREN RPAREN
+   33          | SHOW LPAREN RPAREN
+   34          | GAUSSIAN_BLUR LPAREN INT COMMA INT RPAREN
+   35          | BILATERAL_BLUR LPAREN INT COMMA INT RPAREN
+   36          | MEDIAN_BLUR LPAREN INT RPAREN
+   37          | BINARY_THRESHOLD LPAREN INT RPAREN
+   38          | BINARY_INV_THRESHOLD LPAREN INT RPAREN
+   39          | OTSU_THRESHOLD LPAREN INT RPAREN
+   40          | BINARIZATION LPAREN RPAREN
+   41          | COUNTOR LPAREN RPAREN
+
+   42 func_list: func_loop
+   43          | func_list DOUBLE_GREATER func_loop
+
+   44 expression: func
+   45           | IDENTIFIER TIMES IDENTIFIER
+   46           | IDENTIFIER PLUS IDENTIFIER
+   47           | IDENTIFIER MINUS IDENTIFIER
+   48           | ARRAY DOUBLE_EXCLAMATION INT
+   49           | nested_func
+
+   50 nested_func: IDENTIFIER LPAREN expression_list RPAREN
+
+   51 expression_list: expression
+   52                | expression_list COMMA expression
+
+   53 identifier_list: IDENTIFIER
+   54                | identifier_list COMMA IDENTIFIER
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    ERROR (258)
+    IDENTIFIER <stringVal> (259) 4 5 6 8 10 11 19 20 21 22 23 24 25 26 27 28 29 45 46 47 50 53 54
+    PATH <stringVal> (260) 6
+    INT <intVal> (261) 19 20 22 23 24 25 26 27 30 31 34 35 36 37 38 39 48
+    ARRAY <stringVal> (262) 7 9 48
+    PLUS (263) 46
+    MINUS (264) 47
+    TIMES (265) 45
+    ASSIGNMENT (266) 7 8
+    COMMA (267) 6 9 10 19 20 22 23 24 25 26 27 30 34 35 52 54
+    LPAREN (268) 4 5 6 9 10 12 13 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 50
+    RPAREN (269) 4 5 6 9 10 12 13 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 50
+    LBRACKET (270) 7
+    RBRACKET (271) 7
+    DOUBLE_EXCLAMATION (272) 48
+    RESIZE (273) 19 30
+    ROTATE (274) 20 31
+    FLIP (275) 21 32
+    LOAD (276) 6
+    SHOW (277) 4 33
+    GAUSSIAN_BLUR (278) 22 34
+    BILATERAL_BLUR (279) 23 35
+    MEDIAN_BLUR (280) 24 36
+    BINARY_THRESHOLD (281) 25 37
+    BINARY_INV_THRESHOLD (282) 26 38
+    OTSU_THRESHOLD (283) 27 39
+    BINARIZATION (284) 28 40
+    COUNTOR (285) 29 41
+    LOOP (286) 9
+    COMPILE (287) 11
+    DOUBLE_GREATER (288) 11 43
+    RECOGNIZE_TEXT (289) 10
+    PRINT (290) 5
+    TIMER (291) 12
+    ON (292) 14
+    OFF (293) 15
+    SET_MODE (294) 13
+    SEQUENTIAL_MODE (295) 16
+    PARALLEL_MODE (296) 17
+    PARALLEL_CHUNKED_MODE (297) 18
+
+
+Nonterminals, with rules where they appear
+
+    $accept (43)
+        on left: 0
+    program (44)
+        on left: 1
+        on right: 0
+    command_list <node> (45)
+        on left: 2 3
+        on right: 1 3
+    command <node> (46)
+        on left: 4 5 6 7 8 9 10 11 12 13
+        on right: 2 3
+    on_off <node> (47)
+        on left: 14 15
+        on right: 12
+    mode <node> (48)
+        on left: 16 17 18
+        on right: 13
+    func <node> (49)
+        on left: 19 20 21 22 23 24 25 26 27 28 29
+        on right: 44
+    func_loop <node> (50)
+        on left: 30 31 32 33 34 35 36 37 38 39 40 41
+        on right: 9 42 43
+    func_list <node> (51)
+        on left: 42 43
+        on right: 11 43
+    expression <node> (52)
+        on left: 44 45 46 47 48 49
+        on right: 8 51 52
+    nested_func <node> (53)
+        on left: 50
+        on right: 49
+    expression_list <node> (54)
+        on left: 51 52
+        on right: 50 52
+    identifier_list <node> (55)
+        on left: 53 54
+        on right: 7 54
+
+
+State 0
+
+    0 $accept: • program $end
+
+    IDENTIFIER      shift, and go to state 1
+    ARRAY           shift, and go to state 2
+    LOAD            shift, and go to state 3
+    SHOW            shift, and go to state 4
+    LOOP            shift, and go to state 5
+    COMPILE         shift, and go to state 6
+    RECOGNIZE_TEXT  shift, and go to state 7
+    PRINT           shift, and go to state 8
+    TIMER           shift, and go to state 9
+    SET_MODE        shift, and go to state 10
+
+    program       go to state 11
+    command_list  go to state 12
+    command       go to state 13
+
+
+State 1
+
+    8 command: IDENTIFIER • ASSIGNMENT expression
+
+    ASSIGNMENT  shift, and go to state 14
+
+
+State 2
+
+    7 command: ARRAY • ASSIGNMENT LBRACKET identifier_list RBRACKET
+
+    ASSIGNMENT  shift, and go to state 15
+
+
+State 3
+
+    6 command: LOAD • LPAREN IDENTIFIER COMMA PATH RPAREN
+
+    LPAREN  shift, and go to state 16
+
+
+State 4
+
+    4 command: SHOW • LPAREN IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 17
+
+
+State 5
+
+    9 command: LOOP • LPAREN ARRAY COMMA func_loop RPAREN
+
+    LPAREN  shift, and go to state 18
+
+
+State 6
+
+   11 command: COMPILE • DOUBLE_GREATER IDENTIFIER DOUBLE_GREATER func_list
+
+    DOUBLE_GREATER  shift, and go to state 19
+
+
+State 7
+
+   10 command: RECOGNIZE_TEXT • LPAREN IDENTIFIER COMMA IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 20
+
+
+State 8
+
+    5 command: PRINT • LPAREN IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 21
+
+
+State 9
+
+   12 command: TIMER • LPAREN on_off RPAREN
+
+    LPAREN  shift, and go to state 22
+
+
+State 10
+
+   13 command: SET_MODE • LPAREN mode RPAREN
+
+    LPAREN  shift, and go to state 23
+
+
+State 11
+
+    0 $accept: program • $end
+
+    $end  shift, and go to state 24
+
+
+State 12
+
+    1 program: command_list •
+    3 command_list: command_list • command
+
+    IDENTIFIER      shift, and go to state 1
+    ARRAY           shift, and go to state 2
+    LOAD            shift, and go to state 3
+    SHOW            shift, and go to state 4
+    LOOP            shift, and go to state 5
+    COMPILE         shift, and go to state 6
+    RECOGNIZE_TEXT  shift, and go to state 7
+    PRINT           shift, and go to state 8
+    TIMER           shift, and go to state 9
+    SET_MODE        shift, and go to state 10
+
+    $default  reduce using rule 1 (program)
+
+    command  go to state 25
+
+
+State 13
+
+    2 command_list: command •
+
+    $default  reduce using rule 2 (command_list)
+
+
+State 14
+
+    8 command: IDENTIFIER ASSIGNMENT • expression
+
+    IDENTIFIER            shift, and go to state 26
+    ARRAY                 shift, and go to state 27
+    RESIZE                shift, and go to state 28
+    ROTATE                shift, and go to state 29
+    FLIP                  shift, and go to state 30
+    GAUSSIAN_BLUR         shift, and go to state 31
+    BILATERAL_BLUR        shift, and go to state 32
+    MEDIAN_BLUR           shift, and go to state 33
+    BINARY_THRESHOLD      shift, and go to state 34
+    BINARY_INV_THRESHOLD  shift, and go to state 35
+    OTSU_THRESHOLD        shift, and go to state 36
+    BINARIZATION          shift, and go to state 37
+    COUNTOR               shift, and go to state 38
+
+    func         go to state 39
+    expression   go to state 40
+    nested_func  go to state 41
+
+
+State 15
+
+    7 command: ARRAY ASSIGNMENT • LBRACKET identifier_list RBRACKET
+
+    LBRACKET  shift, and go to state 42
+
+
+State 16
+
+    6 command: LOAD LPAREN • IDENTIFIER COMMA PATH RPAREN
+
+    IDENTIFIER  shift, and go to state 43
+
+
+State 17
+
+    4 command: SHOW LPAREN • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 44
+
+
+State 18
+
+    9 command: LOOP LPAREN • ARRAY COMMA func_loop RPAREN
+
+    ARRAY  shift, and go to state 45
+
+
+State 19
+
+   11 command: COMPILE DOUBLE_GREATER • IDENTIFIER DOUBLE_GREATER func_list
+
+    IDENTIFIER  shift, and go to state 46
+
+
+State 20
+
+   10 command: RECOGNIZE_TEXT LPAREN • IDENTIFIER COMMA IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 47
+
+
+State 21
+
+    5 command: PRINT LPAREN • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 48
+
+
+State 22
+
+   12 command: TIMER LPAREN • on_off RPAREN
+
+    ON   shift, and go to state 49
+    OFF  shift, and go to state 50
+
+    on_off  go to state 51
+
+
+State 23
+
+   13 command: SET_MODE LPAREN • mode RPAREN
+
+    SEQUENTIAL_MODE        shift, and go to state 52
+    PARALLEL_MODE          shift, and go to state 53
+    PARALLEL_CHUNKED_MODE  shift, and go to state 54
+
+    mode  go to state 55
+
+
+State 24
+
+    0 $accept: program $end •
+
+    $default  accept
+
+
+State 25
+
+    3 command_list: command_list command •
+
+    $default  reduce using rule 3 (command_list)
+
+
+State 26
+
+   45 expression: IDENTIFIER • TIMES IDENTIFIER
+   46           | IDENTIFIER • PLUS IDENTIFIER
+   47           | IDENTIFIER • MINUS IDENTIFIER
+   50 nested_func: IDENTIFIER • LPAREN expression_list RPAREN
+
+    PLUS    shift, and go to state 56
+    MINUS   shift, and go to state 57
+    TIMES   shift, and go to state 58
+    LPAREN  shift, and go to state 59
+
+
+State 27
+
+   48 expression: ARRAY • DOUBLE_EXCLAMATION INT
+
+    DOUBLE_EXCLAMATION  shift, and go to state 60
+
+
+State 28
+
+   19 func: RESIZE • LPAREN INT COMMA INT COMMA IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 61
+
+
+State 29
+
+   20 func: ROTATE • LPAREN INT COMMA IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 62
+
+
+State 30
+
+   21 func: FLIP • LPAREN IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 63
+
+
+State 31
+
+   22 func: GAUSSIAN_BLUR • LPAREN INT COMMA INT COMMA IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 64
+
+
+State 32
+
+   23 func: BILATERAL_BLUR • LPAREN INT COMMA INT COMMA IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 65
+
+
+State 33
+
+   24 func: MEDIAN_BLUR • LPAREN INT COMMA IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 66
+
+
+State 34
+
+   25 func: BINARY_THRESHOLD • LPAREN INT COMMA IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 67
+
+
+State 35
+
+   26 func: BINARY_INV_THRESHOLD • LPAREN INT COMMA IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 68
+
+
+State 36
+
+   27 func: OTSU_THRESHOLD • LPAREN INT COMMA IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 69
+
+
+State 37
+
+   28 func: BINARIZATION • LPAREN IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 70
+
+
+State 38
+
+   29 func: COUNTOR • LPAREN IDENTIFIER RPAREN
+
+    LPAREN  shift, and go to state 71
+
+
+State 39
+
+   44 expression: func •
+
+    $default  reduce using rule 44 (expression)
+
+
+State 40
+
+    8 command: IDENTIFIER ASSIGNMENT expression •
+
+    $default  reduce using rule 8 (command)
+
+
+State 41
+
+   49 expression: nested_func •
+
+    $default  reduce using rule 49 (expression)
+
+
+State 42
+
+    7 command: ARRAY ASSIGNMENT LBRACKET • identifier_list RBRACKET
+
+    IDENTIFIER  shift, and go to state 72
+
+    identifier_list  go to state 73
+
+
+State 43
+
+    6 command: LOAD LPAREN IDENTIFIER • COMMA PATH RPAREN
+
+    COMMA  shift, and go to state 74
+
+
+State 44
+
+    4 command: SHOW LPAREN IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 75
+
+
+State 45
+
+    9 command: LOOP LPAREN ARRAY • COMMA func_loop RPAREN
+
+    COMMA  shift, and go to state 76
+
+
+State 46
+
+   11 command: COMPILE DOUBLE_GREATER IDENTIFIER • DOUBLE_GREATER func_list
+
+    DOUBLE_GREATER  shift, and go to state 77
+
+
+State 47
+
+   10 command: RECOGNIZE_TEXT LPAREN IDENTIFIER • COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 78
+
+
+State 48
+
+    5 command: PRINT LPAREN IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 79
+
+
+State 49
+
+   14 on_off: ON •
+
+    $default  reduce using rule 14 (on_off)
+
+
+State 50
+
+   15 on_off: OFF •
+
+    $default  reduce using rule 15 (on_off)
+
+
+State 51
+
+   12 command: TIMER LPAREN on_off • RPAREN
+
+    RPAREN  shift, and go to state 80
+
+
+State 52
+
+   16 mode: SEQUENTIAL_MODE •
+
+    $default  reduce using rule 16 (mode)
+
+
+State 53
+
+   17 mode: PARALLEL_MODE •
+
+    $default  reduce using rule 17 (mode)
+
+
+State 54
+
+   18 mode: PARALLEL_CHUNKED_MODE •
+
+    $default  reduce using rule 18 (mode)
+
+
+State 55
+
+   13 command: SET_MODE LPAREN mode • RPAREN
+
+    RPAREN  shift, and go to state 81
+
+
+State 56
+
+   46 expression: IDENTIFIER PLUS • IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 82
+
+
+State 57
+
+   47 expression: IDENTIFIER MINUS • IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 83
+
+
+State 58
+
+   45 expression: IDENTIFIER TIMES • IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 84
+
+
+State 59
+
+   50 nested_func: IDENTIFIER LPAREN • expression_list RPAREN
+
+    IDENTIFIER            shift, and go to state 26
+    ARRAY                 shift, and go to state 27
+    RESIZE                shift, and go to state 28
+    ROTATE                shift, and go to state 29
+    FLIP                  shift, and go to state 30
+    GAUSSIAN_BLUR         shift, and go to state 31
+    BILATERAL_BLUR        shift, and go to state 32
+    MEDIAN_BLUR           shift, and go to state 33
+    BINARY_THRESHOLD      shift, and go to state 34
+    BINARY_INV_THRESHOLD  shift, and go to state 35
+    OTSU_THRESHOLD        shift, and go to state 36
+    BINARIZATION          shift, and go to state 37
+    COUNTOR               shift, and go to state 38
+
+    func             go to state 39
+    expression       go to state 85
+    nested_func      go to state 41
+    expression_list  go to state 86
+
+
+State 60
+
+   48 expression: ARRAY DOUBLE_EXCLAMATION • INT
+
+    INT  shift, and go to state 87
+
+
+State 61
+
+   19 func: RESIZE LPAREN • INT COMMA INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 88
+
+
+State 62
+
+   20 func: ROTATE LPAREN • INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 89
+
+
+State 63
+
+   21 func: FLIP LPAREN • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 90
+
+
+State 64
+
+   22 func: GAUSSIAN_BLUR LPAREN • INT COMMA INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 91
+
+
+State 65
+
+   23 func: BILATERAL_BLUR LPAREN • INT COMMA INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 92
+
+
+State 66
+
+   24 func: MEDIAN_BLUR LPAREN • INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 93
+
+
+State 67
+
+   25 func: BINARY_THRESHOLD LPAREN • INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 94
+
+
+State 68
+
+   26 func: BINARY_INV_THRESHOLD LPAREN • INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 95
+
+
+State 69
+
+   27 func: OTSU_THRESHOLD LPAREN • INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 96
+
+
+State 70
+
+   28 func: BINARIZATION LPAREN • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 97
+
+
+State 71
+
+   29 func: COUNTOR LPAREN • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 98
+
+
+State 72
+
+   53 identifier_list: IDENTIFIER •
+
+    $default  reduce using rule 53 (identifier_list)
+
+
+State 73
+
+    7 command: ARRAY ASSIGNMENT LBRACKET identifier_list • RBRACKET
+   54 identifier_list: identifier_list • COMMA IDENTIFIER
+
+    COMMA     shift, and go to state 99
+    RBRACKET  shift, and go to state 100
+
+
+State 74
+
+    6 command: LOAD LPAREN IDENTIFIER COMMA • PATH RPAREN
+
+    PATH  shift, and go to state 101
+
+
+State 75
+
+    4 command: SHOW LPAREN IDENTIFIER RPAREN •
+
+    $default  reduce using rule 4 (command)
+
+
+State 76
+
+    9 command: LOOP LPAREN ARRAY COMMA • func_loop RPAREN
+
+    RESIZE                shift, and go to state 102
+    ROTATE                shift, and go to state 103
+    FLIP                  shift, and go to state 104
+    SHOW                  shift, and go to state 105
+    GAUSSIAN_BLUR         shift, and go to state 106
+    BILATERAL_BLUR        shift, and go to state 107
+    MEDIAN_BLUR           shift, and go to state 108
+    BINARY_THRESHOLD      shift, and go to state 109
+    BINARY_INV_THRESHOLD  shift, and go to state 110
+    OTSU_THRESHOLD        shift, and go to state 111
+    BINARIZATION          shift, and go to state 112
+    COUNTOR               shift, and go to state 113
+
+    func_loop  go to state 114
+
+
+State 77
+
+   11 command: COMPILE DOUBLE_GREATER IDENTIFIER DOUBLE_GREATER • func_list
+
+    RESIZE                shift, and go to state 102
+    ROTATE                shift, and go to state 103
+    FLIP                  shift, and go to state 104
+    SHOW                  shift, and go to state 105
+    GAUSSIAN_BLUR         shift, and go to state 106
+    BILATERAL_BLUR        shift, and go to state 107
+    MEDIAN_BLUR           shift, and go to state 108
+    BINARY_THRESHOLD      shift, and go to state 109
+    BINARY_INV_THRESHOLD  shift, and go to state 110
+    OTSU_THRESHOLD        shift, and go to state 111
+    BINARIZATION          shift, and go to state 112
+    COUNTOR               shift, and go to state 113
+
+    func_loop  go to state 115
+    func_list  go to state 116
+
+
+State 78
+
+   10 command: RECOGNIZE_TEXT LPAREN IDENTIFIER COMMA • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 117
+
+
+State 79
+
+    5 command: PRINT LPAREN IDENTIFIER RPAREN •
+
+    $default  reduce using rule 5 (command)
+
+
+State 80
+
+   12 command: TIMER LPAREN on_off RPAREN •
+
+    $default  reduce using rule 12 (command)
+
+
+State 81
+
+   13 command: SET_MODE LPAREN mode RPAREN •
+
+    $default  reduce using rule 13 (command)
+
+
+State 82
+
+   46 expression: IDENTIFIER PLUS IDENTIFIER •
+
+    $default  reduce using rule 46 (expression)
+
+
+State 83
+
+   47 expression: IDENTIFIER MINUS IDENTIFIER •
+
+    $default  reduce using rule 47 (expression)
+
+
+State 84
+
+   45 expression: IDENTIFIER TIMES IDENTIFIER •
+
+    $default  reduce using rule 45 (expression)
+
+
+State 85
+
+   51 expression_list: expression •
+
+    $default  reduce using rule 51 (expression_list)
+
+
+State 86
+
+   50 nested_func: IDENTIFIER LPAREN expression_list • RPAREN
+   52 expression_list: expression_list • COMMA expression
+
+    COMMA   shift, and go to state 118
+    RPAREN  shift, and go to state 119
+
+
+State 87
+
+   48 expression: ARRAY DOUBLE_EXCLAMATION INT •
+
+    $default  reduce using rule 48 (expression)
+
+
+State 88
+
+   19 func: RESIZE LPAREN INT • COMMA INT COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 120
+
+
+State 89
+
+   20 func: ROTATE LPAREN INT • COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 121
+
+
+State 90
+
+   21 func: FLIP LPAREN IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 122
+
+
+State 91
+
+   22 func: GAUSSIAN_BLUR LPAREN INT • COMMA INT COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 123
+
+
+State 92
+
+   23 func: BILATERAL_BLUR LPAREN INT • COMMA INT COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 124
+
+
+State 93
+
+   24 func: MEDIAN_BLUR LPAREN INT • COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 125
+
+
+State 94
+
+   25 func: BINARY_THRESHOLD LPAREN INT • COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 126
+
+
+State 95
+
+   26 func: BINARY_INV_THRESHOLD LPAREN INT • COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 127
+
+
+State 96
+
+   27 func: OTSU_THRESHOLD LPAREN INT • COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 128
+
+
+State 97
+
+   28 func: BINARIZATION LPAREN IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 129
+
+
+State 98
+
+   29 func: COUNTOR LPAREN IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 130
+
+
+State 99
+
+   54 identifier_list: identifier_list COMMA • IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 131
+
+
+State 100
+
+    7 command: ARRAY ASSIGNMENT LBRACKET identifier_list RBRACKET •
+
+    $default  reduce using rule 7 (command)
+
+
+State 101
+
+    6 command: LOAD LPAREN IDENTIFIER COMMA PATH • RPAREN
+
+    RPAREN  shift, and go to state 132
+
+
+State 102
+
+   30 func_loop: RESIZE • LPAREN INT COMMA INT RPAREN
+
+    LPAREN  shift, and go to state 133
+
+
+State 103
+
+   31 func_loop: ROTATE • LPAREN INT RPAREN
+
+    LPAREN  shift, and go to state 134
+
+
+State 104
+
+   32 func_loop: FLIP • LPAREN RPAREN
+
+    LPAREN  shift, and go to state 135
+
+
+State 105
+
+   33 func_loop: SHOW • LPAREN RPAREN
+
+    LPAREN  shift, and go to state 136
+
+
+State 106
+
+   34 func_loop: GAUSSIAN_BLUR • LPAREN INT COMMA INT RPAREN
+
+    LPAREN  shift, and go to state 137
+
+
+State 107
+
+   35 func_loop: BILATERAL_BLUR • LPAREN INT COMMA INT RPAREN
+
+    LPAREN  shift, and go to state 138
+
+
+State 108
+
+   36 func_loop: MEDIAN_BLUR • LPAREN INT RPAREN
+
+    LPAREN  shift, and go to state 139
+
+
+State 109
+
+   37 func_loop: BINARY_THRESHOLD • LPAREN INT RPAREN
+
+    LPAREN  shift, and go to state 140
+
+
+State 110
+
+   38 func_loop: BINARY_INV_THRESHOLD • LPAREN INT RPAREN
+
+    LPAREN  shift, and go to state 141
+
+
+State 111
+
+   39 func_loop: OTSU_THRESHOLD • LPAREN INT RPAREN
+
+    LPAREN  shift, and go to state 142
+
+
+State 112
+
+   40 func_loop: BINARIZATION • LPAREN RPAREN
+
+    LPAREN  shift, and go to state 143
+
+
+State 113
+
+   41 func_loop: COUNTOR • LPAREN RPAREN
+
+    LPAREN  shift, and go to state 144
+
+
+State 114
+
+    9 command: LOOP LPAREN ARRAY COMMA func_loop • RPAREN
+
+    RPAREN  shift, and go to state 145
+
+
+State 115
+
+   42 func_list: func_loop •
+
+    $default  reduce using rule 42 (func_list)
+
+
+State 116
+
+   11 command: COMPILE DOUBLE_GREATER IDENTIFIER DOUBLE_GREATER func_list •
+   43 func_list: func_list • DOUBLE_GREATER func_loop
+
+    DOUBLE_GREATER  shift, and go to state 146
+
+    $default  reduce using rule 11 (command)
+
+
+State 117
+
+   10 command: RECOGNIZE_TEXT LPAREN IDENTIFIER COMMA IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 147
+
+
+State 118
+
+   52 expression_list: expression_list COMMA • expression
+
+    IDENTIFIER            shift, and go to state 26
+    ARRAY                 shift, and go to state 27
+    RESIZE                shift, and go to state 28
+    ROTATE                shift, and go to state 29
+    FLIP                  shift, and go to state 30
+    GAUSSIAN_BLUR         shift, and go to state 31
+    BILATERAL_BLUR        shift, and go to state 32
+    MEDIAN_BLUR           shift, and go to state 33
+    BINARY_THRESHOLD      shift, and go to state 34
+    BINARY_INV_THRESHOLD  shift, and go to state 35
+    OTSU_THRESHOLD        shift, and go to state 36
+    BINARIZATION          shift, and go to state 37
+    COUNTOR               shift, and go to state 38
+
+    func         go to state 39
+    expression   go to state 148
+    nested_func  go to state 41
+
+
+State 119
+
+   50 nested_func: IDENTIFIER LPAREN expression_list RPAREN •
+
+    $default  reduce using rule 50 (nested_func)
+
+
+State 120
+
+   19 func: RESIZE LPAREN INT COMMA • INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 149
+
+
+State 121
+
+   20 func: ROTATE LPAREN INT COMMA • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 150
+
+
+State 122
+
+   21 func: FLIP LPAREN IDENTIFIER RPAREN •
+
+    $default  reduce using rule 21 (func)
+
+
+State 123
+
+   22 func: GAUSSIAN_BLUR LPAREN INT COMMA • INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 151
+
+
+State 124
+
+   23 func: BILATERAL_BLUR LPAREN INT COMMA • INT COMMA IDENTIFIER RPAREN
+
+    INT  shift, and go to state 152
+
+
+State 125
+
+   24 func: MEDIAN_BLUR LPAREN INT COMMA • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 153
+
+
+State 126
+
+   25 func: BINARY_THRESHOLD LPAREN INT COMMA • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 154
+
+
+State 127
+
+   26 func: BINARY_INV_THRESHOLD LPAREN INT COMMA • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 155
+
+
+State 128
+
+   27 func: OTSU_THRESHOLD LPAREN INT COMMA • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 156
+
+
+State 129
+
+   28 func: BINARIZATION LPAREN IDENTIFIER RPAREN •
+
+    $default  reduce using rule 28 (func)
+
+
+State 130
+
+   29 func: COUNTOR LPAREN IDENTIFIER RPAREN •
+
+    $default  reduce using rule 29 (func)
+
+
+State 131
+
+   54 identifier_list: identifier_list COMMA IDENTIFIER •
+
+    $default  reduce using rule 54 (identifier_list)
+
+
+State 132
+
+    6 command: LOAD LPAREN IDENTIFIER COMMA PATH RPAREN •
+
+    $default  reduce using rule 6 (command)
+
+
+State 133
+
+   30 func_loop: RESIZE LPAREN • INT COMMA INT RPAREN
+
+    INT  shift, and go to state 157
+
+
+State 134
+
+   31 func_loop: ROTATE LPAREN • INT RPAREN
+
+    INT  shift, and go to state 158
+
+
+State 135
+
+   32 func_loop: FLIP LPAREN • RPAREN
+
+    RPAREN  shift, and go to state 159
+
+
+State 136
+
+   33 func_loop: SHOW LPAREN • RPAREN
+
+    RPAREN  shift, and go to state 160
+
+
+State 137
+
+   34 func_loop: GAUSSIAN_BLUR LPAREN • INT COMMA INT RPAREN
+
+    INT  shift, and go to state 161
+
+
+State 138
+
+   35 func_loop: BILATERAL_BLUR LPAREN • INT COMMA INT RPAREN
+
+    INT  shift, and go to state 162
+
+
+State 139
+
+   36 func_loop: MEDIAN_BLUR LPAREN • INT RPAREN
+
+    INT  shift, and go to state 163
+
+
+State 140
+
+   37 func_loop: BINARY_THRESHOLD LPAREN • INT RPAREN
+
+    INT  shift, and go to state 164
+
+
+State 141
+
+   38 func_loop: BINARY_INV_THRESHOLD LPAREN • INT RPAREN
+
+    INT  shift, and go to state 165
+
+
+State 142
+
+   39 func_loop: OTSU_THRESHOLD LPAREN • INT RPAREN
+
+    INT  shift, and go to state 166
+
+
+State 143
+
+   40 func_loop: BINARIZATION LPAREN • RPAREN
+
+    RPAREN  shift, and go to state 167
+
+
+State 144
+
+   41 func_loop: COUNTOR LPAREN • RPAREN
+
+    RPAREN  shift, and go to state 168
+
+
+State 145
+
+    9 command: LOOP LPAREN ARRAY COMMA func_loop RPAREN •
+
+    $default  reduce using rule 9 (command)
+
+
+State 146
+
+   43 func_list: func_list DOUBLE_GREATER • func_loop
+
+    RESIZE                shift, and go to state 102
+    ROTATE                shift, and go to state 103
+    FLIP                  shift, and go to state 104
+    SHOW                  shift, and go to state 105
+    GAUSSIAN_BLUR         shift, and go to state 106
+    BILATERAL_BLUR        shift, and go to state 107
+    MEDIAN_BLUR           shift, and go to state 108
+    BINARY_THRESHOLD      shift, and go to state 109
+    BINARY_INV_THRESHOLD  shift, and go to state 110
+    OTSU_THRESHOLD        shift, and go to state 111
+    BINARIZATION          shift, and go to state 112
+    COUNTOR               shift, and go to state 113
+
+    func_loop  go to state 169
+
+
+State 147
+
+   10 command: RECOGNIZE_TEXT LPAREN IDENTIFIER COMMA IDENTIFIER RPAREN •
+
+    $default  reduce using rule 10 (command)
+
+
+State 148
+
+   52 expression_list: expression_list COMMA expression •
+
+    $default  reduce using rule 52 (expression_list)
+
+
+State 149
+
+   19 func: RESIZE LPAREN INT COMMA INT • COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 170
+
+
+State 150
+
+   20 func: ROTATE LPAREN INT COMMA IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 171
+
+
+State 151
+
+   22 func: GAUSSIAN_BLUR LPAREN INT COMMA INT • COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 172
+
+
+State 152
+
+   23 func: BILATERAL_BLUR LPAREN INT COMMA INT • COMMA IDENTIFIER RPAREN
+
+    COMMA  shift, and go to state 173
+
+
+State 153
+
+   24 func: MEDIAN_BLUR LPAREN INT COMMA IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 174
+
+
+State 154
+
+   25 func: BINARY_THRESHOLD LPAREN INT COMMA IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 175
+
+
+State 155
+
+   26 func: BINARY_INV_THRESHOLD LPAREN INT COMMA IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 176
+
+
+State 156
+
+   27 func: OTSU_THRESHOLD LPAREN INT COMMA IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 177
+
+
+State 157
+
+   30 func_loop: RESIZE LPAREN INT • COMMA INT RPAREN
+
+    COMMA  shift, and go to state 178
+
+
+State 158
+
+   31 func_loop: ROTATE LPAREN INT • RPAREN
+
+    RPAREN  shift, and go to state 179
+
+
+State 159
+
+   32 func_loop: FLIP LPAREN RPAREN •
+
+    $default  reduce using rule 32 (func_loop)
+
+
+State 160
+
+   33 func_loop: SHOW LPAREN RPAREN •
+
+    $default  reduce using rule 33 (func_loop)
+
+
+State 161
+
+   34 func_loop: GAUSSIAN_BLUR LPAREN INT • COMMA INT RPAREN
+
+    COMMA  shift, and go to state 180
+
+
+State 162
+
+   35 func_loop: BILATERAL_BLUR LPAREN INT • COMMA INT RPAREN
+
+    COMMA  shift, and go to state 181
+
+
+State 163
+
+   36 func_loop: MEDIAN_BLUR LPAREN INT • RPAREN
+
+    RPAREN  shift, and go to state 182
+
+
+State 164
+
+   37 func_loop: BINARY_THRESHOLD LPAREN INT • RPAREN
+
+    RPAREN  shift, and go to state 183
+
+
+State 165
+
+   38 func_loop: BINARY_INV_THRESHOLD LPAREN INT • RPAREN
+
+    RPAREN  shift, and go to state 184
+
+
+State 166
+
+   39 func_loop: OTSU_THRESHOLD LPAREN INT • RPAREN
+
+    RPAREN  shift, and go to state 185
+
+
+State 167
+
+   40 func_loop: BINARIZATION LPAREN RPAREN •
+
+    $default  reduce using rule 40 (func_loop)
+
+
+State 168
+
+   41 func_loop: COUNTOR LPAREN RPAREN •
+
+    $default  reduce using rule 41 (func_loop)
+
+
+State 169
+
+   43 func_list: func_list DOUBLE_GREATER func_loop •
+
+    $default  reduce using rule 43 (func_list)
+
+
+State 170
+
+   19 func: RESIZE LPAREN INT COMMA INT COMMA • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 186
+
+
+State 171
+
+   20 func: ROTATE LPAREN INT COMMA IDENTIFIER RPAREN •
+
+    $default  reduce using rule 20 (func)
+
+
+State 172
+
+   22 func: GAUSSIAN_BLUR LPAREN INT COMMA INT COMMA • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 187
+
+
+State 173
+
+   23 func: BILATERAL_BLUR LPAREN INT COMMA INT COMMA • IDENTIFIER RPAREN
+
+    IDENTIFIER  shift, and go to state 188
+
+
+State 174
+
+   24 func: MEDIAN_BLUR LPAREN INT COMMA IDENTIFIER RPAREN •
+
+    $default  reduce using rule 24 (func)
+
+
+State 175
+
+   25 func: BINARY_THRESHOLD LPAREN INT COMMA IDENTIFIER RPAREN •
+
+    $default  reduce using rule 25 (func)
+
+
+State 176
+
+   26 func: BINARY_INV_THRESHOLD LPAREN INT COMMA IDENTIFIER RPAREN •
+
+    $default  reduce using rule 26 (func)
+
+
+State 177
+
+   27 func: OTSU_THRESHOLD LPAREN INT COMMA IDENTIFIER RPAREN •
+
+    $default  reduce using rule 27 (func)
+
+
+State 178
+
+   30 func_loop: RESIZE LPAREN INT COMMA • INT RPAREN
+
+    INT  shift, and go to state 189
+
+
+State 179
+
+   31 func_loop: ROTATE LPAREN INT RPAREN •
+
+    $default  reduce using rule 31 (func_loop)
+
+
+State 180
+
+   34 func_loop: GAUSSIAN_BLUR LPAREN INT COMMA • INT RPAREN
+
+    INT  shift, and go to state 190
+
+
+State 181
+
+   35 func_loop: BILATERAL_BLUR LPAREN INT COMMA • INT RPAREN
+
+    INT  shift, and go to state 191
+
+
+State 182
+
+   36 func_loop: MEDIAN_BLUR LPAREN INT RPAREN •
+
+    $default  reduce using rule 36 (func_loop)
+
+
+State 183
+
+   37 func_loop: BINARY_THRESHOLD LPAREN INT RPAREN •
+
+    $default  reduce using rule 37 (func_loop)
+
+
+State 184
+
+   38 func_loop: BINARY_INV_THRESHOLD LPAREN INT RPAREN •
+
+    $default  reduce using rule 38 (func_loop)
+
+
+State 185
+
+   39 func_loop: OTSU_THRESHOLD LPAREN INT RPAREN •
+
+    $default  reduce using rule 39 (func_loop)
+
+
+State 186
+
+   19 func: RESIZE LPAREN INT COMMA INT COMMA IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 192
+
+
+State 187
+
+   22 func: GAUSSIAN_BLUR LPAREN INT COMMA INT COMMA IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 193
+
+
+State 188
+
+   23 func: BILATERAL_BLUR LPAREN INT COMMA INT COMMA IDENTIFIER • RPAREN
+
+    RPAREN  shift, and go to state 194
+
+
+State 189
+
+   30 func_loop: RESIZE LPAREN INT COMMA INT • RPAREN
+
+    RPAREN  shift, and go to state 195
+
+
+State 190
+
+   34 func_loop: GAUSSIAN_BLUR LPAREN INT COMMA INT • RPAREN
+
+    RPAREN  shift, and go to state 196
+
+
+State 191
+
+   35 func_loop: BILATERAL_BLUR LPAREN INT COMMA INT • RPAREN
+
+    RPAREN  shift, and go to state 197
+
+
+State 192
+
+   19 func: RESIZE LPAREN INT COMMA INT COMMA IDENTIFIER RPAREN •
+
+    $default  reduce using rule 19 (func)
+
+
+State 193
+
+   22 func: GAUSSIAN_BLUR LPAREN INT COMMA INT COMMA IDENTIFIER RPAREN •
+
+    $default  reduce using rule 22 (func)
+
+
+State 194
+
+   23 func: BILATERAL_BLUR LPAREN INT COMMA INT COMMA IDENTIFIER RPAREN •
+
+    $default  reduce using rule 23 (func)
+
+
+State 195
+
+   30 func_loop: RESIZE LPAREN INT COMMA INT RPAREN •
+
+    $default  reduce using rule 30 (func_loop)
+
+
+State 196
+
+   34 func_loop: GAUSSIAN_BLUR LPAREN INT COMMA INT RPAREN •
+
+    $default  reduce using rule 34 (func_loop)
+
+
+State 197
+
+   35 func_loop: BILATERAL_BLUR LPAREN INT COMMA INT RPAREN •
+
+    $default  reduce using rule 35 (func_loop)
